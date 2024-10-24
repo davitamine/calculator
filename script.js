@@ -20,40 +20,51 @@ let operator = null
 
 let secondNumber = null
 
-const display = document.getElementById("display");
-
-const updateDisplay = (value) => {
-    display.value = value;
-}
-
-const getButtonValue = (value) => {
-    return value = button.textContent;
-}
-
-const numberButtons = document.querySelectorAll(".num");
-numberButtons.forEach(button => button.addEventListener("click", () => {
-    display.value += button.textContent; 
-    console.log(button.textContent);
-    console.log(display.textContent);
-    // console.log("display");
-    // console.log(display);
-    // console.log("button");
-    // console.log(button);
-}))
-
-
-
 let operate = (firstNumber, operator, secondNumber) => {
+    firstNumber = parseInt(firstNumber);
+    secondNumber = parseInt(secondNumber);
+
     if (operator === "+") {
         return add(firstNumber, secondNumber);
     } else if (operator === "-") {
         return subtract(firstNumber, secondNumber);
     } else if (operator === "*") {
         return multiply(firstNumber, secondNumber);
-    } else if (operator === "+") {
+    } else if (operator === "/") {
         return divide(firstNumber, secondNumber);
     }
 }
+const display = document.getElementById("display");
+
+const numberButtons = document.querySelectorAll(".num");
+numberButtons.forEach(button => button.addEventListener("click", () => {
+    display.value += button.textContent;
+}))
+
+const operatorButtons = document.querySelectorAll(".operator");
+operatorButtons.forEach(button => button.addEventListener("click", () => {
+    firstNumber = display.value;
+    operator = button.textContent;
+    display.value = "";
+    console.log(operator);
+}))
+
+const calculateButton = document.getElementById("calculate");
+calculateButton.addEventListener("click", () => {
+    secondNumber = display.value;
+    display.value = parseFloat(operate(firstNumber, operator, secondNumber).toFixed(2));
+})
+
+const clearButton = document.getElementById("clear");
+clearButton.addEventListener("click", () => {
+    firstNumber = null;
+    operator = null;
+    secondNumber = null;
+    display.value = "";
+})
+
+
+
 
 
 
